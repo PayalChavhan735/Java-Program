@@ -7,7 +7,7 @@ double commissions;
 HR() {//default constructor
  System.out.println("HR default constructor");
 	 Id=11;
-	 name="Samiksha";
+	 name="Payal";
 	 salary=3500000;
          commissions=1550.34;
 }
@@ -86,4 +86,5 @@ System.out.println("h2 Commission Greater");
 }
 
 }
+
 }
