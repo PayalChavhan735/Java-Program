@@ -1,0 +1,92 @@
+SET-A
+FRN-16J0825/018
+
+Q.1)
+select employee name, salary
+from Employees
+order by salary desc;
+
+Q.2)
+select employee name, salary
+from Employees
+order by salary desc
+limit 5;
+
+Q.3)
+select*from employee
+order by EMPID
+limit 5 offset 3;
+
+Q.4)
+select department id, count(*) as
+employee count
+from employee
+group by department id;
+
+Q.5)
+select department id, average salary as 
+average salary
+from employees
+group by department id
+having avg(salary)>50,000;
+
+Q.6)
+select*from products
+where product name like '%laptop%';
+
+Q.7)
+
+
+
+
+Q.8)
+select*from student
+where name like "A";
+
+Q.9)
+select month(order date) as order month,
+count(*) as total orders
+from orders
+group by month(order date)
+having count(*)>100;
+
+Q.10)
+
+
+
+
+
+
+Q.11)
+a)the total numbers of employees
+
+Q.12)
+b)8
+
+Q.13)
+having
+
+Q.14)
+b) Returns all rows from the left table and matching rows from the right table
+
+Q.15)
+b)HELLO WORLD
+
+Q.16)
+select c. region, sum(total amount)as
+total orders
+from orders
+join customer c on customer_id= c.customer_id
+group by c.region
+having sum(total_amount)>10000;
+
+Q.17)
+select b.author_id, sum(s.quantity)as
+total_book_sold
+from book b
+join sales s on b.book_id=s.book_id
+group by b.author_id
+having sum(s.quntity)>100;
+
+
+
