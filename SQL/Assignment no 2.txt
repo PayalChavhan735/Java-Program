@@ -1,0 +1,356 @@
+Q1
+mysql> create table Member
+    -> (Member_id int,Member_name varchar(30),Member_address varchar(50),Acc_Open_Date Date,Membership_type  varchar(20),
+    -> Fees_paid int,Max_Books_Allowed int,
+    -> penalty_amount Decimal(7,2));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc Member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| Member_id         | int          | YES  |     | NULL    |       |
+| Member_name       | varchar(30)  | YES  |     | NULL    |       |
+| Member_address    | varchar(50)  | YES  |     | NULL    |       |
+| Acc_Open_Date     | date         | YES  |     | NULL    |       |
+| Membership_type   | varchar(20)  | YES  |     | NULL    |       |
+| Fees_paid         | int          | YES  |     | NULL    |       |
+| Max_Books_Allowed | int          | YES  |     | NULL    |       |
+| penalty_amount    | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+mysql> create table Books
+    -> (book_no int,book_name varchar(30),author_name varchar(30),cost decimal(7,2),category char(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc Books;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| book_no     | int          | YES  |     | NULL    |       |
+| book_name   | varchar(30)  | YES  |     | NULL    |       |
+| author_name | varchar(30)  | YES  |     | NULL    |       |
+| cost        | decimal(7,2) | YES  |     | NULL    |       |
+| category    | char(10)     | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+mysql> create table Issue
+    -> (lib_issue_id int,book_no int,Member_id int,Issue_Date Date,return_Date Date);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc Issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | YES  |     | NULL    |       |
+| book_no      | int  | YES  |     | NULL    |       |
+| Member_id    | int  | YES  |     | NULL    |       |
+| Issue_Date   | date | YES  |     | NULL    |       |
+| return_Date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+
+Q2
+desc tablename;
+
+Q3
+drop table member;
+
+Q4
+alter table member
+    -> modify column Member_id int primary key,
+    ->  modify column Membership_type varchar(20)
+    -> check (Membership_type in('Lifetime','Annual','half Yearly','Quartely'));
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| Member_id         | int          | NO   | PRI | NULL    |       |
+| Member_name       | varchar(30)  | YES  |     | NULL    |       |
+| Member_address    | varchar(50)  | YES  |     | NULL    |       |
+| Acc_Open_Date     | date         | YES  |     | NULL    |       |
+| Membership_type   | varchar(20)  | YES  |     | NULL    |       |
+| Fees_paid         | int          | YES  |     | NULL    |       |
+| Max_Books_Allowed | int          | YES  |     | NULL    |       |
+| penalty_amount    | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+
+Q5
+mysql> alter table member
+    ->  modify column Membership_type varchar(40);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| Member_id         | int          | NO   | PRI | NULL    |       |
+| Member_name       | varchar(30)  | YES  |     | NULL    |       |
+| Member_address    | varchar(50)  | YES  |     | NULL    |       |
+| Acc_Open_Date     | date         | YES  |     | NULL    |       |
+| Membership_type   | varchar(40)  | YES  |     | NULL    |       |
+| Fees_paid         | int          | YES  |     | NULL    |       |
+| Max_Books_Allowed | int          | YES  |     | NULL    |       |
+| penalty_amount    | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+
+Q6
+mysql> alter table Issue
+    -> add column reference char(30);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Issue;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| lib_issue_id | int      | YES  |     | NULL    |       |
+| book_no      | int      | YES  |     | NULL    |       |
+| Member_id    | int      | YES  |     | NULL    |       |
+| Issue_Date   | date     | YES  |     | NULL    |       |
+| return_Date  | date     | YES  |     | NULL    |       |
+| reference    | char(30) | YES  |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+
+Q7
+alter table Issue
+ -> drop column reference;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| lib_issue_id | int  | YES  |     | NULL    |       |
+| book_no      | int  | YES  |     | NULL    |       |
+| Member_id    | int  | YES  |     | NULL    |       |
+| Issue_Date   | date | YES  |     | NULL    |       |
+| return_Date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+
+Q8
+ rename table issue to lib_issue;
+
+Q9
+mysql> insert into member(Member_id,Member_name,Member_address,Acc_Open_Date,Membership_type,Fees_paid,Max_Books_Allowed ,penalty_amount)
+    -> values (1,"Richa Sharma","pune",2005-12-10,"lifetime",25000,5,50),
+    -> values (2,"Garima Sen","pune","2026-10-01","Annual",1000,3,null);
+
+Q10
+INSERT INTO member(Member_id, Member_name, Member_address, Acc_Open_Date, Membership_type, Fees_paid, Max_Books_Allowed, penalty_amount)
+    -> VALUES
+    ->     (3, 'Rohite Sarafa', 'pune', '2026-09-01', 'Annual', 500000, 9, 80),
+    ->     (4, 'Ram shinda', 'mumbai', '2024-09-10', 'Annual', 5000, 18, 100),
+    ->     (5, 'Rutuja yenda', 'yavatmal', '2022-03-14', 'Annual', 10000, 4, 50),
+    ->     (6, 'Rushi roge', 'pusad', '2022-03-19', 'lifetime', 10000, 4, 90),
+    ->     (7, 'Roshine yerawar', 'nagpur', '2026-09-12', 'lifetime', 50000, 3, NULL);
+
+Q11
+alter table member
+    -> modify column Member_name varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| Member_id         | int          | NO   | PRI | NULL    |       |
+| Member_name       | varchar(20)  | YES  |     | NULL    |       |
+| Member_address    | varchar(50)  | YES  |     | NULL    |       |
+| Acc_Open_Date     | date         | YES  |     | NULL    |       |
+| Membership_type   | varchar(40)  | YES  |     | NULL    |       |
+| Fees_paid         | int          | YES  |     | NULL    |       |
+| Max_Books_Allowed | int          | YES  |     | NULL    |       |
+| penalty_amount    | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+
+
+Q14
+
+a)   alter table member
+    -> modify column Max_Books_Allowed int
+    -> check(Max_Books_Allowed<100);
+b)  alter table member
+    -> modify column  penalty_amount decimal(7,2)
+    -> check( penalty_amount>=1000);
+
+Q15
+drop table bookss;
+
+Q16
+ create table bookss
+    -> (book_no int primary key,
+    -> book_name varchar(20) not null,
+    -> category char(10) check(category in('System','Fiction','Database','RDBMS','Others')));
+
+Q17
+mysql> INSERT INTO bookss( book_no, book_name, author, cost,category)
+    -> values
+    -> (101,'Let us C','Denis Ritchie',450,'System'),
+    -> (102,'oracle-complete ref','Loni',550,'Database'),
+    -> (103,'mastering SQL','Loni',250,'Database'),
+    -> (104,'PL SQL-ref','scott urman',750,'Database');
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from bookss;
++---------+---------------------+----------+------+---------------+
+| book_no | book_name           | category | cost | author        |
++---------+---------------------+----------+------+---------------+
+|     101 | Let us C            | System   |  450 | Denis Ritchie |
+|     102 | oracle-complete ref | Database |  550 | Loni          |
+|     103 | mastering SQL       | Database |  250 | Loni          |
+|     104 | PL SQL-ref          | Database |  750 | scott urman   |
++---------+---------------------+----------+------+---------------+
+
+Q18
+mysql> INSERT INTO bookss( book_no, book_name, author, cost,category)
+    -> values
+    -> (301, 'Operating System Concepts', 'Silberschatz', 720.00, 'System'),
+    ->   (302, 'Modern Operating Systems', 'Andrew S. Tanenbaum', 680.00, 'System'),
+    -> (303, 'The Alchemist', 'Paulo Coelho', 300.00, 'Fiction'),
+    ->   (304, '1984', 'George Orwell', 250.00, 'Fiction'),
+    -> (305, 'Database System Concepts', 'Silberschatz', 600.00, 'Database'),
+    ->   (306, 'Mastering SQL', 'Loni', 450.00, 'Database'),
+    -> (307, 'Learning MySQL', 'Seyed Tahaghoghi', 500.00, 'RDBMS'),
+    ->   (308, 'Oracle PL/SQL Programming', 'Steven Feuerstein', 750.00, 'RDBMS'),
+    ->   (309, 'Computer Basics', 'Unknown', 200.00, 'Others'),
+    -> (310, 'Tech Innovations 2025', 'Various Authors', 550.00, 'Others');
+Query OK, 10 rows affected (0.01 sec)
+
+Q19
+mysql> select * from bookss;
++---------+---------------------------+----------+------+---------------------+
+| book_no | book_name                 | category | cost | author              |
++---------+---------------------------+----------+------+---------------------+
+|     101 | Let us C                  | System   |  450 | Denis Ritchie       |
+|     102 | oracle-complete ref       | Database |  550 | Loni                |
+|     103 | mastering SQL             | Database |  250 | Loni                |
+|     104 | PL SQL-ref                | Database |  750 | scott urman         |
+|     301 | Operating System Concepts | System   |  720 | Silberschatz        |
+|     302 | Modern Operating Systems  | System   |  680 | Andrew S. Tanenbaum |
+|     303 | The Alchemist             | Fiction  |  300 | Paulo Coelho        |
+|     304 | 1984                      | Fiction  |  250 | George Orwell       |
+|     305 | Database System Concepts  | Database |  600 | Silberschatz        |
+|     306 | Mastering SQL             | Database |  450 | Loni                |
+|     307 | Learning MySQL            | RDBMS    |  500 | Seyed Tahaghoghi    |
+|     308 | Oracle PL/SQL Programming | RDBMS    |  750 | Steven Feuerstein   |
+|     309 | Computer Basics           | Others   |  200 | Unknown             |
+|     310 | Tech Innovations 2025     | Others   |  550 | Various Authors     |
++---------+---------------------------+----------+------+---------------------+
+
+Q20
+mysql> INSERT INTO bookss( book_no, book_name, author, cost,category)
+    -> value(105,'National Geographic','Adis Scott',1000,'Science');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from bookss;
++---------+---------------------------+----------+------+---------------------+
+| book_no | book_name                 | category | cost | author              |
++---------+---------------------------+----------+------+---------------------+
+|     101 | Let us C                  | System   |  450 | Denis Ritchie       |
+|     102 | oracle-complete ref       | Database |  550 | Loni                |
+|     103 | mastering SQL             | Database |  250 | Loni                |
+|     104 | PL SQL-ref                | Database |  750 | scott urman         |
+|     105 | National Geographic       | Science  | 1000 | Adis Scott          |
+|     301 | Operating System Concepts | System   |  720 | Silberschatz        |
+|     302 | Modern Operating Systems  | System   |  680 | Andrew S. Tanenbaum |
+|     303 | The Alchemist             | Fiction  |  300 | Paulo Coelho        |
+|     304 | 1984                      | Fiction  |  250 | George Orwell       |
+|     305 | Database System Concepts  | Database |  600 | Silberschatz        |
+|     306 | Mastering SQL             | Database |  450 | Loni                |
+|     307 | Learning MySQL            | RDBMS    |  500 | Seyed Tahaghoghi    |
+|     308 | Oracle PL/SQL Programming | RDBMS    |  750 | Steven Feuerstein   |
+|     309 | Computer Basics           | Others   |  200 | Unknown             |
+|     310 | Tech Innovations 2025     | Others   |  550 | Various Authors     |
++---------+---------------------------+----------+------+---------------------+
+
+Q21
+rename table lib_issue to issue;
+
+Q22
+drop table issue;
+
+Q23
+create table issue
+(lib_issue_id int primary key,
+book_no int foreign key,
+Member_id int foreign key,
+Issue_Date  date,
+return_Date date);
+
+Q24
+mysql> INSERT INTO lib_issue(lib_issue_id,book_no, Member_id, Issue_Date)
+    -> values
+    -> (7001,101,1,'2006-10-10'),
+    -> (7002,102,2,'2006-10-25'),
+    -> (7003,104,1,'2006-01-15'),
+    -> (7004,101,1,'2006-07-04'),
+    -> (7005,104,2,'2006-11-15'),
+    -> (7006,101,3,'2006-02-18');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from lib_issue;
++--------------+---------+-----------+------------+-------------+
+| lib_issue_id | book_no | Member_id | Issue_Date | return_Date |
++--------------+---------+-----------+------------+-------------+
+|         7001 |     101 |         1 | 2006-10-10 | NULL        |
+|         7002 |     102 |         2 | 2006-10-25 | NULL        |
+|         7003 |     104 |         1 | 2006-01-15 | NULL        |
+|         7004 |     101 |         1 | 2006-07-04 | NULL        |
+|         7005 |     104 |         2 | 2006-11-15 | NULL        |
+|         7006 |     101 |         3 | 2006-02-18 | NULL        |
++--------------+---------+-----------+------------+-------------+
+
+Q25
+ALTER TABLE issue
+DROP CHECK issue_chk_1;
+
+Q26
+INSERT INTO issue(lib_issue_id,book_no, Member_id, Issue_Date)
+
+
+Q29
+mysql> delete from member where Member_id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from member;
++-----------+-----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| Member_id | Member_name     | Member_address | Acc_Open_Date | Membership_type | Fees_paid | Max_Books_Allowed | penalty_amount |
++-----------+-----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|         2 | Garima Sen      | pune           | 2026-10-01    | Annual          |      1000 |                 3 |           NULL |
+|         3 | Rohite Sarafa   | pune           | 2026-09-01    | Annual          |    500000 |                 9 |          80.00 |
+|         4 | Ram shinda      | mumbai         | 2024-09-10    | Annual          |      5000 |                18 |         100.00 |
+|         5 | Rutuja yenda    | yavatmal       | 2022-03-14    | Annual          |     10000 |                 4 |          50.00 |
+|         6 | Rushi roge      | pusad          | 2022-03-19    | lifetime        |     10000 |                 4 |          90.00 |
+|         7 | Roshine yerawar | nagpur         | 2026-09-12    | lifetime        |     50000 |                 3 |           NULL |
++-----------+-----------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+Q30
+mysql> select * from member;
+mysql> select * from issue;
+mysql> select * from bookss;
+
+Q31
+update issue set Issue_Date == DATE_ADD(Issue_Date, INTERVAL 15 DAY)
+where lib_issue_id in(7004,7005);
+
+Q32
+DELETE FROM lib_issue
+WHERE Member_id = 1
+AND Issue_Date < '2006-10-10';
+
+Q33
+DELETE FROM bookss
+WHERE category in ('system','fiction');
+
+Q34
+delete table member;
+
+Q35
+delete table books;
+
